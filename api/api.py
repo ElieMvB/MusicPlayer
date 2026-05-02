@@ -61,14 +61,14 @@ def add_music_to_old_musics(e):
 
 @app.route('/playlists', methods=['GET'])
 def get_playlists():
-    directory_path = "./music"
+    directory_path = "/app/music" #path in container
     folders = [entry for entry in os.listdir(directory_path) 
     if os.path.isdir(os.path.join(directory_path, entry))]
     return jsonify({'playlists': folders})
 
 @app.route('/music/<playlist>', methods=['GET'])
 def get_music(playlist):
-    directory_path = "./music/" + playlist
+    directory_path = "/app/music/" + playlist
     music = [entry for entry in os.listdir(directory_path) 
     if os.path.isfile(os.path.join(directory_path, entry))]
     return jsonify({"music": music})
@@ -111,7 +111,7 @@ def get_music_played():
 @app.route('/play/<playlist>', methods=['PUT'])
 def start_playlist(playlist):
     #get all musics
-    directory_path = "./music/" + playlist
+    directory_path = "/app/music/" + playlist
     music = [entry for entry in os.listdir(directory_path) 
     if os.path.isfile(os.path.join(directory_path, entry))]
     rd.shuffle(music)
