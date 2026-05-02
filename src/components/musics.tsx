@@ -34,8 +34,6 @@ function Musics({playlist, filter}: {playlist: {"music": [string]}, filter: stri
   function listMusic (playlist : {"music": [string]}) {
     const rows = [];
     if (playlist !== null) {
-        console.log("in if")
-        console.log(playlist.music)
         const visibleMusics = playlist.music.filter((music: string) => {
             console.log(music)
             if (filter && !music.toLowerCase().includes(filter.toLowerCase())) {
