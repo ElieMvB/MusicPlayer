@@ -6,7 +6,7 @@ function Playlists() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch('http://192.168.1.18:5000/playlists')
+    fetch('http://music-player-api.martial-van-beek.com/playlists')
       .then(response => response.json())
       .then(json => setData(json))
       .catch(error => console.error(error))

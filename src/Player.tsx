@@ -20,7 +20,7 @@ function Player() {
 
     const nextMusic = async (direction: string) =>  {
         try {
-            const res = await fetch('http://localhost:5000/' + direction +'-music', 
+            const res = await fetch('http://music-player-api.martial-van-beek.com/' + direction +'-music', 
                 {method: 'GET'}
             )
 
@@ -33,7 +33,7 @@ function Player() {
 
     const getMusicPlayed = async () => {
         try {
-            const res = await fetch('http://localhost:5000/music-played', 
+            const res = await fetch('http://music-player-api.martial-van-beek.com/music-played', 
                 {method: 'GET'}
             )
 
