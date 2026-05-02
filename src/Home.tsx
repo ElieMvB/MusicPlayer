@@ -5,7 +5,7 @@ function Home() {
   
 
   return (
-    <div className="bg-slate-800 h-screen text-purple-700">
+    <div className="bg-slate-800 h-max text-purple-700">
       <h1 className="text-center py-10 sm:text-6xl text-3xl"><strong>My Music Player !</strong></h1>
       <div className="lg:ml-10 md:ml-5 ml-2">
         <h1 className="sm:text-4xl text-xl py-6">Playlists :</h1>
@@ -13,6 +13,7 @@ function Home() {
           <Playlists/>
         </div>
       </div>
+      <div className="h-50"/>
     </div>
   )
 }

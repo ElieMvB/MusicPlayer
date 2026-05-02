@@ -48,7 +48,7 @@ function Playlist() {
     }
 
   return (
-    <div className="bg-slate-800 h-full text-purple-700">
+    <div className="bg-slate-800 h-max text-purple-700">
       <h1 className="text-center py-10 md:text-6xl sm:text-3xl text-xl">{title}</h1>
       <div className="flex justify-center">
         <button 
