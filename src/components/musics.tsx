@@ -7,7 +7,7 @@ function Musics({playlist, filter}: {playlist: {"music": [string]}, filter: stri
 
     const addMusic = async (p: string, m: string) => {
         try {
-            await fetch("http://music-player-api.martial-van-beek.com/force-music/" + p + "/" + m, {
+            await fetch("https://music-player-api.martial-van-beek.com/force-music/" + p + "/" + m, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

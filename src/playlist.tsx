@@ -13,7 +13,7 @@ function Playlist() {
     const [search, setSearch] = useState('')
     
     useEffect(() => {
-    fetch('http://music-player-api.martial-van-beek.com/music/' + playlist)
+    fetch('https://music-player-api.martial-van-beek.com/music/' + playlist)
         .then(response => response.json())
         .then(json => setData(json))
         .catch(error => console.error(error))
@@ -34,7 +34,7 @@ function Playlist() {
 
     const playPlaylist = async () => {
       try {
-        const res = await fetch("http://music-player-api.martial-van-beek.com/play/" + playlist, {
+        const res = await fetch("https://music-player-api.martial-van-beek.com/play/" + playlist, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
