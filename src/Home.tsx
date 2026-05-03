@@ -1,4 +1,4 @@
-import Playlists from "./components/playlists";
+import Playlists from "./components/Playlists";
 
 function Home() {
 

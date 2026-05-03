@@ -1,6 +1,6 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom"
 import Home from "./Home"
-import Playlist from "./playlist"
+import Playlist from "./Playlist"
 import Player from "./Player"
 
 const router = createBrowserRouter([

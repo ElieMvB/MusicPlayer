@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useState,useEffect } from "react";
-import Musics from "./components/musics";
+import Musics from "./components/Musics";
 import { SearchBar } from "./components/SearchBar";
 
 function Playlist() {
@@ -48,7 +48,7 @@ function Playlist() {
     }
 
   return (
-    <div className="bg-slate-800 h-max text-purple-700">
+    <div className="bg-slate-800 h-full text-purple-700">
       <h1 className="text-center py-10 md:text-6xl sm:text-3xl text-xl">{title}</h1>
       <div className="flex justify-center">
         <button 
@@ -68,7 +68,7 @@ function Playlist() {
       <div>
         {data ? <Musics playlist={data} filter={search}/> : 'Loading...'}
       </div>
-      <div className="h-50"/>
+      <div className="h-150"/>
     </div>
   )
 }
