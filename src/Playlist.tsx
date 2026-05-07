@@ -13,7 +13,7 @@ function Playlist() {
     const [data, setData] = useState<{"music": string[]} | null>(null);
     const [search, setSearch] = useState('')
 
-    const {musics, setMusics, setCurrentMusic, setCurrentPlaylist, setNumberMusics, setOldMusics} = useAppContext();
+    const {setMusics, setCurrentMusic, setCurrentPlaylist, setNumberMusics, setOldMusics} = useAppContext();
     
     useEffect(() => {
     fetch('https://music-player-api.martial-van-beek.com/music/' + playlist)
@@ -38,10 +38,10 @@ function Playlist() {
         if (data !== null) {
           setMusics(data.music)
           setCurrentMusic(0);
-          setOldMusics([]);
+          setOldMusics([{"music": data.music[0], "playlist": playlist}]);
           setNumberMusics(0);
           setCurrentPlaylist(playlist);
-          playMusic(musics[0]);
+          playMusic(data.music[0]);
         }
     }
 

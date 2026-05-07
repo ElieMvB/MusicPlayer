@@ -11,16 +11,16 @@ function Musics({playlist, filter}: {playlist: {"music": string[]}, filter: stri
     function playMusic (p : string, m : string) {
       const player = document.getElementById("player") as HTMLAudioElement;
       if (m !== null) {
+        setNumberMusics(numberMusics + 1);
+        const newOldMusics = oldMusics;
+        newOldMusics.push({"music": m, "playlist":p});
+        setOldMusics(newOldMusics);
         const path = "./music/" + p + "/" + m;
         player.src = path;
         player.load()
         player.play().catch(err => {
           console.log(err);
         })
-        setNumberMusics(numberMusics + 1);
-        const newOldMusics = oldMusics;
-        newOldMusics.push({"music": m, "playlist":p});
-        setOldMusics(newOldMusics);
       }
     };
 

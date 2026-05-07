@@ -1,10 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppContext } from "./components/AppContext";
 
 function Player() {
 
     const [musicTitle, setMusicTitle] = useState<string | null>(null);
     const {musics, currentMusic, setCurrentMusic, currentPlaylist, numberMusics, setNumberMusics, oldMusics, setOldMusics} = useAppContext();
+
+    useEffect(() => {
+        if (oldMusics.length - 1 >= numberMusics) {
+            setMusicTitle(oldMusics[numberMusics].music.slice(0, -4));
+        } else if (musics.length > 0) {
+            setMusicTitle(musics[currentMusic].slice(0, -4));
+        } else {
+            setMusicTitle("En attente d'une musique...");
+        }
+    }, [numberMusics, currentMusic, musics, oldMusics]);
 
     function playMusic (json: {"music": string, "playlist": string}) {
       const current_music = String(json.music);
@@ -23,20 +33,22 @@ function Player() {
     function nextMusic () {
         if (oldMusics.length - 2 >= numberMusics) {
             setNumberMusics(numberMusics + 1);
-            setMusicTitle(oldMusics[numberMusics].music.slice(0, -4));
-            playMusic(oldMusics[numberMusics]);
+            setMusicTitle(oldMusics[numberMusics + 1].music.slice(0, -4));
+            playMusic(oldMusics[numberMusics + 1]);
         } else {
-            if (currentMusic == musics.length - 1) {
-                setCurrentMusic(0);
-            } else {
-                setCurrentMusic(currentMusic + 1);
-            }
             const newOldMusics = oldMusics;
             newOldMusics.push({"music": musics[currentMusic], "playlist": currentPlaylist})
             setOldMusics(newOldMusics);
             setNumberMusics(numberMusics + 1);
-            setMusicTitle(musics[currentMusic].slice(0, -4));
-            playMusic({"music": musics[currentMusic], "playlist": currentPlaylist});
+            if (currentMusic == musics.length - 1) {
+                setCurrentMusic(0);
+                setMusicTitle(musics[0].slice(0, -4));
+                playMusic({"music": musics[0], "playlist": currentPlaylist});
+            } else {
+                setCurrentMusic(currentMusic + 1);
+                setMusicTitle(musics[currentMusic + 1].slice(0, -4));
+                playMusic({"music": musics[currentMusic + 1], "playlist": currentPlaylist});
+            }
         }
     }
 
@@ -45,8 +57,8 @@ function Player() {
             beginningMusic ();
         } else {
             setNumberMusics(numberMusics - 1);
-            setMusicTitle(oldMusics[numberMusics].music.slice(0, -4));
-            playMusic(oldMusics[numberMusics]);
+            setMusicTitle(oldMusics[numberMusics - 1].music.slice(0, -4));
+            playMusic(oldMusics[numberMusics - 1]);
         }
     }
 
@@ -60,13 +72,22 @@ function Player() {
         <div className="mb-2 ml-2">
                 <h1>{musicTitle ? musicTitle : "En attente d'une musique..."}</h1>
         </div>
-        <div className="w-[95%] grid grid-cols-7">
+        <div className="w-[95%] grid grid-cols-8">
+            <div className="col-span-1 flex justify-center items-center">
+                <button className="2xl:w-18 2xl:h-18 lg:w-14 lg:h-14 sm:w-12 sm:h-12 rounded-full bg-violet-600 text-white text-2xl flex items-center text-4xl 
+                        justify-center shadow-lg hover:bg-violet-700 hover:text-lime-500 hover:border-lime-500
+                        sm:text-3xl text-xl w-8 h-8"
+                    onClick={previousMusic}
+                    >
+                    &lt;&lt;
+                </button>
+
+            </div>    
             <div className="col-span-1 flex justify-center items-center">
                 <button className="2xl:w-18 2xl:h-18 lg:w-14 lg:h-14 sm:w-12 sm:h-12 rounded-full bg-violet-600 text-white text-2xl flex items-center text-4xl 
                         justify-center shadow-lg hover:bg-violet-700 hover:text-lime-500 hover:border-lime-500
                         sm:text-3xl text-xl w-8 h-8"
                     onClick={beginningMusic}
-                    onDoubleClick={() => previousMusic()}
                     >
                     &lt;
                 </button>
