@@ -1,22 +1,12 @@
 import { useParams } from "react-router-dom"
+import {useAppContext} from "./AppContext";
 
-function Musics({playlist, filter}: {playlist: {"music": [string]}, filter: string}) {
+function Musics({playlist, filter}: {playlist: {"music": string[]}, filter: string}) {
 
     const params = useParams();
     const playlistName = String(params.parameter);
 
-    const addMusic = async (p: string, m: string) => {
-        try {
-            await fetch("https://music-player-api.martial-van-beek.com/force-music/" + p + "/" + m, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-        } catch (err) {
-            console.error(err)
-        }
-    }
+    const {numberMusics, setNumberMusics, oldMusics, setOldMusics} = useAppContext();
 
     function playMusic (p : string, m : string) {
       const player = document.getElementById("player") as HTMLAudioElement;
@@ -27,21 +17,23 @@ function Musics({playlist, filter}: {playlist: {"music": [string]}, filter: stri
         player.play().catch(err => {
           console.log(err);
         })
-        addMusic(p, m)
+        setNumberMusics(numberMusics + 1);
+        const newOldMusics = oldMusics;
+        newOldMusics.push({"music": m, "playlist":p});
+        setOldMusics(newOldMusics);
       }
     };
 
-  function listMusic (playlist : {"music": [string]}) {
+  function listMusic (playlist : {"music": string[]}) {
     const rows = [];
     if (playlist !== null) {
         const visibleMusics = playlist.music.filter((music: string) => {
-            console.log(music)
             if (filter && !music.toLowerCase().includes(filter.toLowerCase())) {
                 return false;
             }
             return true;
         });
-        for (let music of visibleMusics) {
+        for (let music of visibleMusics.sort()) {
             rows.push(
                 <div key={music} className="sm:text-2xl text-sm flex m-3 border-solid border-2 
                     hover:border-purple-500"

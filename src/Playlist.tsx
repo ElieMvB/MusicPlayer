@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom"
 import { useState,useEffect } from "react";
 import Musics from "./components/Musics";
 import { SearchBar } from "./components/SearchBar";
+import { useAppContext } from "./components/AppContext";
 
 function Playlist() {
     const params = useParams();
@@ -9,8 +10,10 @@ function Playlist() {
     let title = playlist.replace(/-/g, " ");
     title = title.charAt(0).toUpperCase() + title.slice(1);
 
-    const [data, setData] = useState(null);
+    const [data, setData] = useState<{"music": string[]} | null>(null);
     const [search, setSearch] = useState('')
+
+    const {musics, setMusics, setCurrentMusic, setCurrentPlaylist, setNumberMusics, setOldMusics} = useAppContext();
     
     useEffect(() => {
     fetch('https://music-player-api.martial-van-beek.com/music/' + playlist)
@@ -19,11 +22,10 @@ function Playlist() {
         .catch(error => console.error(error))
     }, [])
 
-    function playMusic (json: {"music": string}) {
-      const current = String(json.music)
+    function playMusic (music: string) {
       const player = document.getElementById("player") as HTMLAudioElement;
-      if (current !== null) {
-        const path = "./music/" + playlist + "/" + current;
+      if (music !== null) {
+        const path = "./music/" + playlist + "/" + music;
         player.src = path;
         player.load()
         player.play().catch(err => {
@@ -32,19 +34,15 @@ function Playlist() {
       }
     };
 
-    const playPlaylist = async () => {
-      try {
-        const res = await fetch("https://music-player-api.martial-van-beek.com/play/" + playlist, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        const json = await res.json()
-        playMusic(json)
-      } catch (err){
-        console.error(err)
-      }
+    function playPlaylist () {
+        if (data !== null) {
+          setMusics(data.music)
+          setCurrentMusic(0);
+          setOldMusics([]);
+          setNumberMusics(0);
+          setCurrentPlaylist(playlist);
+          playMusic(musics[0]);
+        }
     }
 
   return (

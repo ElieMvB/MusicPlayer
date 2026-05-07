@@ -1,16 +1,18 @@
 import { useState } from "react";
+import { useAppContext } from "./components/AppContext";
 
 function Player() {
 
-    const [musicTitle, setMusicTitle] = useState(null);
+    const [musicTitle, setMusicTitle] = useState<string | null>(null);
+    const {musics, currentMusic, setCurrentMusic, currentPlaylist, numberMusics, setNumberMusics, oldMusics, setOldMusics} = useAppContext();
 
     function playMusic (json: {"music": string, "playlist": string}) {
-      const current_music = String(json.music)
-      const current_playlist = String(json.playlist)
+      const current_music = String(json.music);
+      const current_playlist = String(json.playlist);
       const player = document.getElementById("player") as HTMLAudioElement;
       if (current_music !== null) {
         const path = "./music/" + current_playlist + "/" + current_music;
-        player.src = path;
+        player.src = path; //requete au site à ce moment là
         player.load()
         player.play().catch(err => {
           console.log(err);
@@ -18,29 +20,33 @@ function Player() {
       }
     };
 
-    const nextMusic = async (direction: string) =>  {
-        try {
-            const res = await fetch('https://music-player-api.martial-van-beek.com/' + direction +'-music', 
-                {method: 'GET'}
-            )
-
-            const json = await res.json()
-            playMusic(json)
-        } catch (err) {
-            console.error(err)
+    function nextMusic () {
+        if (oldMusics.length - 2 >= numberMusics) {
+            setNumberMusics(numberMusics + 1);
+            setMusicTitle(oldMusics[numberMusics].music.slice(0, -4));
+            playMusic(oldMusics[numberMusics]);
+        } else {
+            if (currentMusic == musics.length - 1) {
+                setCurrentMusic(0);
+            } else {
+                setCurrentMusic(currentMusic + 1);
+            }
+            const newOldMusics = oldMusics;
+            newOldMusics.push({"music": musics[currentMusic], "playlist": currentPlaylist})
+            setOldMusics(newOldMusics);
+            setNumberMusics(numberMusics + 1);
+            setMusicTitle(musics[currentMusic].slice(0, -4));
+            playMusic({"music": musics[currentMusic], "playlist": currentPlaylist});
         }
     }
 
-    const getMusicPlayed = async () => {
-        try {
-            const res = await fetch('https://music-player-api.martial-van-beek.com/music-played', 
-                {method: 'GET'}
-            )
-
-            const json = await res.json();
-            setMusicTitle(json.music.slice(0, -4));
-        } catch (err) {
-            console.error(err)
+    function previousMusic () {
+        if (numberMusics <= 0) {
+            beginningMusic ();
+        } else {
+            setNumberMusics(numberMusics - 1);
+            setMusicTitle(oldMusics[numberMusics].music.slice(0, -4));
+            playMusic(oldMusics[numberMusics]);
         }
     }
 
@@ -60,7 +66,7 @@ function Player() {
                         justify-center shadow-lg hover:bg-violet-700 hover:text-lime-500 hover:border-lime-500
                         sm:text-3xl text-xl w-8 h-8"
                     onClick={beginningMusic}
-                    onDoubleClick={() => nextMusic('previous')}
+                    onDoubleClick={() => previousMusic()}
                     >
                     &lt;
                 </button>
@@ -72,15 +78,14 @@ function Player() {
                 className="sm:w-[100%] md:h-[100%] h-[80%]"
                 src="./music/HeartOfADancer.mp3"
                 controls
-                onEnded={() => nextMusic('next')}
-                onPlay={getMusicPlayed}
+                onEnded={() => nextMusic()}
                 />
             </div>
             <div className="col-span-1 flex justify-center items-center">
                 <button className="2xl:w-18 2xl:h-18 lg:w-14 lg:h-14 sm:w-12 sm:h-12 rounded-full bg-violet-600 text-white text-2xl flex items-center text-4xl 
                         justify-center shadow-lg hover:bg-violet-700 hover:text-lime-500 hover:border-lime-500
                         sm:text-3xl text-xl w-8 h-8"
-                    onClick={() => nextMusic('next')}
+                    onClick={() => nextMusic()}
                     >
                     &gt;
                 </button>
