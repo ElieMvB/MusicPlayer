@@ -37,14 +37,18 @@ function Player() {
             playMusic(oldMusics[numberMusics + 1]);
         } else {
             const newOldMusics = oldMusics;
-            newOldMusics.push({"music": musics[currentMusic], "playlist": currentPlaylist})
-            setOldMusics(newOldMusics);
-            setNumberMusics(numberMusics + 1);
+            
             if (currentMusic == musics.length - 1) {
                 setCurrentMusic(0);
+                newOldMusics.push({"music": musics[0], "playlist": currentPlaylist})
+                setOldMusics(newOldMusics);
+                setNumberMusics(numberMusics + 1);
                 setMusicTitle(musics[0].slice(0, -4));
                 playMusic({"music": musics[0], "playlist": currentPlaylist});
             } else {
+                newOldMusics.push({"music": musics[currentMusic+1], "playlist": currentPlaylist})
+                setOldMusics(newOldMusics);
+                setNumberMusics(numberMusics + 1);
                 setCurrentMusic(currentMusic + 1);
                 setMusicTitle(musics[currentMusic + 1].slice(0, -4));
                 playMusic({"music": musics[currentMusic + 1], "playlist": currentPlaylist});
