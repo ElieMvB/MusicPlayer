@@ -48,11 +48,49 @@ function Musics({playlist, filter}: {playlist: {"music": string[]}, filter: stri
     
   }
 
- return (
-    <div className="border-solid border-3 ml-6 mr-6 bg-slate-900">
-        {playlist ? listMusic(playlist) : 'Loading...'}
+return (
+  <div
+    className="
+      rounded-3xl
+      border border-white/10
+
+      bg-gradient-to-b
+      from-slate-900
+      to-purple-950/70
+
+      backdrop-blur-md
+      shadow-2xl
+
+      overflow-hidden
+    "
+  >
+
+    {/* Top Glow */}
+    <div className="
+      h-[2px]
+      w-full
+      bg-gradient-to-r
+      from-transparent
+      via-lime-400
+      to-transparent
+    "/>
+
+    <div className="p-4 sm:p-6">
+      {playlist ? (
+        listMusic(playlist)
+      ) : (
+        <div className="
+          py-10
+          text-center
+          text-slate-300
+          animate-pulse
+        ">
+          Chargement des Musiques...
+        </div>
+      )}
     </div>
- )
+  </div>
+)
 }
 
 export default Musics

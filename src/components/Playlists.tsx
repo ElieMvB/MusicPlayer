@@ -33,10 +33,22 @@ function Playlists() {
   }
 
  return (
-    <div >
-        {data ? listPlaylists(data) : 'Loading...'}
+    <div>
+      {data ? (
+        listPlaylists(data)
+      ) : (
+        <div className="
+          flex items-center justify-center
+          py-10
+          text-slate-300
+          text-lg
+          animate-pulse
+        ">
+          Chargement des Playlists...
+        </div>
+      )}
     </div>
- )
+  )
 }
 
 export default Playlists

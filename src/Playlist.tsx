@@ -46,29 +46,144 @@ function Playlist() {
     }
 
   return (
-    <div className="bg-slate-800 h-full text-purple-700">
-      <h1 className="text-center py-10 md:text-6xl sm:text-3xl text-xl">{title}</h1>
-      <div className="flex justify-center">
-        <button 
-          className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounde"
+  <div className="
+    min-h-screen
+    bg-gradient-to-br
+    from-slate-950
+    via-purple-950
+    to-fuchsia-950
+    text-white
+    pb-40
+  ">
+
+    {/* Header */}
+    <div className="pt-14 pb-10 px-4 text-center">
+      <h1 className="
+        font-black
+        tracking-tight
+        drop-shadow-2xl
+
+        md:text-6xl
+        sm:text-4xl
+        text-2xl
+      ">
+        <span className="bg-gradient-to-r from-fuchsia-400 via-purple-300 to-lime-300 bg-clip-text text-transparent">
+          {title}
+        </span>
+      </h1>
+    </div>
+
+    {/* Main Content */}
+    <div className="
+      mx-auto
+      w-[95%]
+      max-w-6xl
+      rounded-3xl
+      border border-white/10
+      bg-white/5
+      backdrop-blur-md
+      shadow-2xl
+      p-5 sm:p-8
+    ">
+
+      {/* Play Button */}
+      <div className="flex justify-center mb-8">
+
+        <button
+          className="
+            group
+            relative
+            overflow-hidden
+
+            px-8 py-4
+            rounded-2xl
+
+            bg-gradient-to-r
+            from-lime-400
+            to-lime-300
+
+            text-black
+            font-bold
+            tracking-wide
+
+            shadow-[0_0_30px_rgba(163,230,53,0.35)]
+
+            transition-all duration-300
+            hover:scale-105
+            hover:shadow-[0_0_40px_rgba(163,230,53,0.55)]
+            active:scale-95
+          "
           onClick={playPlaylist}
-          >
-          Lancer la playlist !
+        >
+
+          <span className="relative z-10 flex items-center gap-3">
+            ▶ Lancer la playlist !
+          </span>
+
+          <div className="
+            absolute inset-0
+            opacity-0 group-hover:opacity-100
+            transition-opacity duration-300
+
+            bg-gradient-to-r
+            from-white/20
+            to-transparent
+          "/>
         </button>
       </div>
-      <div className="w-[80%] sm:ml-10 ml-2">
-        <SearchBar 
-        value={search} 
-        placeholder="Rechercher une musique..." 
-        onChange={setSearch}/>
+
+      {/* Search */}
+      <div className="mb-8">
+        <SearchBar
+          value={search}
+          placeholder="Rechercher une musique..."
+          onChange={setSearch}
+        />
       </div>
-      <h1 className="lg:text-4xl md:text-3xl sm:text-2xl text-xl py-4 ml-4">Musiques :</h1>
+
+      {/* Music Title */}
+      <div className="flex items-center gap-3 mb-6">
+
+        <div className="
+          w-3 h-3
+          rounded-full
+          bg-lime-400
+          shadow-[0_0_12px_rgba(163,230,53,0.9)]
+        "/>
+
+        <h1 className="
+          lg:text-4xl
+          md:text-3xl
+          sm:text-2xl
+          text-xl
+
+          font-bold
+          tracking-wide
+          text-white
+        ">
+          Musiques
+        </h1>
+      </div>
+
+      {/* Music List */}
       <div>
-        {data ? <Musics playlist={data} filter={search}/> : 'Loading...'}
+        {data ? (
+          <Musics playlist={data} filter={search} />
+        ) : (
+          <div className="
+            flex justify-center items-center
+            py-12
+            text-slate-300
+            animate-pulse
+            text-lg
+          ">
+            Loading...
+          </div>
+        )}
       </div>
-      <div className="h-150"/>
     </div>
-  )
+  </div>
+)
 }
 
 export default Playlist

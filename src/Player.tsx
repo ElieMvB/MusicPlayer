@@ -72,53 +72,137 @@ function Player() {
     }
 
     return (
-    <div className="bg-fuchsia-800 w-[100%] h-[15%] fixed absolute bottom-0 2xl:text-3xl lg:text-2xl md:text-xl">
-        <div className="mb-2 ml-2">
-                <h1>{musicTitle ? musicTitle : "En attente d'une musique..."}</h1>
-        </div>
-        <div className="w-[95%] grid grid-cols-8">
-            <div className="col-span-1 flex justify-center items-center">
-                <button className="2xl:w-18 2xl:h-18 lg:w-14 lg:h-14 sm:w-12 sm:h-12 rounded-full bg-violet-600 text-white text-2xl flex items-center text-4xl 
-                        justify-center shadow-lg hover:bg-violet-700 hover:text-lime-500 hover:border-lime-500
-                        sm:text-3xl text-xl w-8 h-8"
-                    onClick={previousMusic}
-                    >
-                    &lt;&lt;
-                </button>
+  <div className="fixed bottom-0 left-0 w-full border-t border-fuchsia-500/30 bg-gradient-to-r from-fuchsia-900 via-purple-900 to-violet-950 backdrop-blur-md shadow-2xl px-4 py-3 z-50">
+    
+    {/* Title */}
+    <div className="mb-3 flex items-center justify-between">
+      <div className="overflow-hidden">
+        <h1 className="truncate font-semibold text-white tracking-wide 
+          2xl:text-3xl lg:text-2xl md:text-xl text-sm">
+          {musicTitle ? musicTitle : "En attente d'une musique..."}
+        </h1>
 
-            </div>    
-            <div className="col-span-1 flex justify-center items-center">
-                <button className="2xl:w-18 2xl:h-18 lg:w-14 lg:h-14 sm:w-12 sm:h-12 rounded-full bg-violet-600 text-white text-2xl flex items-center text-4xl 
-                        justify-center shadow-lg hover:bg-violet-700 hover:text-lime-500 hover:border-lime-500
-                        sm:text-3xl text-xl w-8 h-8"
-                    onClick={beginningMusic}
-                    >
-                    &lt;
-                </button>
-
-            </div>
-            <div className="col-span-5 flex justify-center items-center">
-                <audio
-                id="player"
-                className="sm:w-[100%] md:h-[100%] h-[80%]"
-                src="./music/HeartOfADancer.mp3"
-                controls
-                onEnded={() => nextMusic()}
-                />
-            </div>
-            <div className="col-span-1 flex justify-center items-center">
-                <button className="2xl:w-18 2xl:h-18 lg:w-14 lg:h-14 sm:w-12 sm:h-12 rounded-full bg-violet-600 text-white text-2xl flex items-center text-4xl 
-                        justify-center shadow-lg hover:bg-violet-700 hover:text-lime-500 hover:border-lime-500
-                        sm:text-3xl text-xl w-8 h-8"
-                    onClick={() => nextMusic()}
-                    >
-                    &gt;
-                </button>
-
-            </div>
-        </div>
+        <p className="text-fuchsia-200/70 text-xs md:text-sm">
+          Lecteur audio
+        </p>
+      </div>
     </div>
-    )
+
+    {/* Controls */}
+    <div className="grid grid-cols-8 gap-3 items-center">
+      
+      {/* Previous */}
+      <div className="col-span-1 flex justify-center">
+        <button
+          className="
+            group
+            flex items-center justify-center
+            rounded-full
+            bg-white/10
+            border border-white/10
+            text-white
+            transition-all duration-200
+            hover:bg-lime-400
+            hover:text-black
+            hover:scale-105
+            active:scale-95
+            shadow-lg
+
+            2xl:w-18 2xl:h-18
+            lg:w-14 lg:h-14
+            sm:w-12 sm:h-12
+            w-10 h-10
+          "
+          onClick={previousMusic}
+        >
+          <span className="2xl:text-3xl lg:text-2xl text-lg font-bold">
+            ≪
+          </span>
+        </button>
+      </div>
+
+      {/* Restart */}
+      <div className="col-span-1 flex justify-center">
+        <button
+          className="
+            group
+            flex items-center justify-center
+            rounded-full
+            bg-white/10
+            border border-white/10
+            text-white
+            transition-all duration-200
+            hover:bg-cyan-400
+            hover:text-black
+            hover:scale-105
+            active:scale-95
+            shadow-lg
+
+            2xl:w-18 2xl:h-18
+            lg:w-14 lg:h-14
+            sm:w-12 sm:h-12
+            w-10 h-10
+          "
+          onClick={beginningMusic}
+        >
+          <span className="2xl:text-3xl lg:text-2xl text-lg font-bold">
+            ↺
+          </span>
+        </button>
+      </div>
+
+      {/* Audio Player */}
+      <div className="col-span-5 flex items-center justify-center">
+        <div className="
+          w-full
+          rounded-2xl
+          bg-black/20
+          border border-white/10
+          px-3 py-2
+          shadow-inner
+        ">
+          <audio
+            id="player"
+            className="w-full h-10"
+            src="./music/HeartOfADancer.mp3"
+            controls
+            onEnded={() => nextMusic()}
+          />
+        </div>
+      </div>
+
+      {/* Next */}
+      <div className="col-span-1 flex justify-center">
+        <button
+          className="
+            group
+            flex items-center justify-center
+            rounded-full
+            bg-white/10
+            border border-white/10
+            text-white
+            transition-all duration-200
+            hover:bg-lime-400
+            hover:text-black
+            hover:scale-105
+            active:scale-95
+            shadow-lg
+
+            2xl:w-18 2xl:h-18
+            lg:w-14 lg:h-14
+            sm:w-12 sm:h-12
+            w-10 h-10
+          "
+          onClick={() => nextMusic()}
+        >
+          <span className="2xl:text-3xl lg:text-2xl text-lg font-bold">
+            ≫
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+);
 }
 
 export default Player
