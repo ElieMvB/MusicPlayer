@@ -23,7 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-./public/music
-./music
-./api/venv
+public/music
+api/venv
 compose.yml
