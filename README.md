@@ -1,3 +1,7 @@
+# Mon lecteur de musique en ligne
+Voi-ci un lecteur de musique que j'ai développé car ça m'embêtait de devoir écouter des publicités et que les lecteurs audio habituels ne me convenaient pas. Avec celui-ci j'ai accès à ma musique de partout et sur n'importe quel appareil.
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
