@@ -7,7 +7,7 @@ import { useAppContext } from "./components/AppContext";
 function Playlist() {
     const params = useParams();
     const playlist = String(params.parameter);
-    let title = playlist.replace(/-/g, " ");
+    let title = playlist
     title = title.charAt(0).toUpperCase() + title.slice(1);
 
     const [data, setData] = useState<{"music": string[]} | null>(null);

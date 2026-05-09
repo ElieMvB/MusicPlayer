@@ -4,15 +4,19 @@ import { useAppContext } from "./components/AppContext";
 function Player() {
 
     const [musicTitle, setMusicTitle] = useState<string | null>(null);
+    const [musicPlaylist, setMusicPlaylist] = useState<string | null>(null);
     const {musics, currentMusic, setCurrentMusic, currentPlaylist, numberMusics, setNumberMusics, oldMusics, setOldMusics} = useAppContext();
 
     useEffect(() => {
         if (oldMusics.length - 1 >= numberMusics) {
             setMusicTitle(oldMusics[numberMusics].music.slice(0, -4));
+            setMusicPlaylist(oldMusics[numberMusics].playlist);
         } else if (musics.length > 0) {
             setMusicTitle(musics[currentMusic].slice(0, -4));
+            setMusicPlaylist(currentPlaylist);
         } else {
             setMusicTitle("En attente d'une musique...");
+            setMusicPlaylist("En attente d'une playlist...");
         }
     }, [numberMusics, currentMusic, musics, oldMusics]);
 
@@ -83,7 +87,7 @@ function Player() {
         </h1>
 
         <p className="text-fuchsia-200/70 text-xs md:text-sm">
-          Lecteur audio
+          {musicPlaylist ? "Playlist de la musique : " + musicPlaylist : "En attente d'une playlist..."}
         </p>
       </div>
     </div>
