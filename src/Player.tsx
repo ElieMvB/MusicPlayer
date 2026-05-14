@@ -79,7 +79,7 @@ function Player() {
     }
 
     return (
-  <div className="fixed bottom-0 left-0 w-full border-t border-fuchsia-500/20 bg-gradient-to-r from-slate-900 via-fuchsia-900 to-violet-950 backdrop-blur-md shadow-2xl px-4 py-3 z-50">
+  <div className="fixed bottom-0 left-0 w-full border-t border-fuchsia-500/20 bg-gradient-to-r from-slate-900 via-fuchsia-900 to-violet-950 backdrop-blur-md shadow-2xl sm:px-4 px-3 py-3 z-50">
     
     {/* Title */}
     <div className="mb-3 flex items-center justify-between">
@@ -95,11 +95,11 @@ function Player() {
       </div>
     </div>
 
-    {/* Controls */}
+    {/* Controls for big screens*/}
     <div className="grid grid-cols-8 gap-3 items-center">
       
       {/* Previous */}
-      <div className="col-span-1 flex justify-center">
+      <div className="col-span-1 flex justify-center sm:block hidden">
         <button
           className="
             group
@@ -129,7 +129,7 @@ function Player() {
       </div>
 
       {/* Restart */}
-      <div className="col-span-1 flex justify-center">
+      <div className="col-span-1 flex justify-center sm:block hidden">
         <button
           className="
             group
@@ -159,13 +159,14 @@ function Player() {
       </div>
 
       {/* Audio Player */}
-      <div className="col-span-5 flex items-center justify-center">
+      <div className="sm:col-span-5 col-span-8 flex items-center justify-center">
         <div className="
           w-full
-          rounded-2xl
+          sm:rounded-2xl
+          rounded-lg
           bg-black/20
           border border-white/10
-          px-3 py-2
+          sm:px-3 px-1 sm:py-2 py-1
           shadow-inner
         ">
           <audio
@@ -179,7 +180,99 @@ function Player() {
       </div>
 
       {/* Next */}
-      <div className="col-span-1 flex justify-center">
+      <div className="col-span-1 flex justify-center sm:block hidden">
+        <button
+          className="
+            group
+            flex items-center justify-center
+            rounded-full
+            bg-white/10
+            border border-white/10
+            text-white
+            transition-all duration-200
+            hover:bg-lime-400
+            hover:text-black
+            hover:scale-105
+            active:scale-95
+            shadow-lg
+
+            2xl:w-18 2xl:h-18
+            lg:w-14 lg:h-14
+            sm:w-12 sm:h-12
+            w-10 h-10
+          "
+          onClick={() => nextMusic()}
+        >
+          <span className="2xl:text-3xl lg:text-2xl text-lg font-bold">
+            ≫
+          </span>
+        </button>
+      </div>
+    </div>
+
+    {/* Controls for phones */}
+    <div className="sm:hidden grid grid-cols-3 gap-3 items-center mt-1">
+      {/* Previous */}
+      <div className="flex justify-center">
+        <button
+          className="
+            group
+            flex items-center justify-center
+            rounded-full
+            bg-white/10
+            border border-white/10
+            text-white
+            transition-all duration-200
+            hover:bg-lime-400
+            hover:text-black
+            hover:scale-105
+            active:scale-95
+            shadow-lg
+
+            2xl:w-18 2xl:h-18
+            lg:w-14 lg:h-14
+            sm:w-12 sm:h-12
+            w-10 h-10
+          "
+          onClick={previousMusic}
+        >
+          <span className="2xl:text-3xl lg:text-2xl text-lg font-bold">
+            ≪
+          </span>
+        </button>
+      </div>
+
+      {/* Restart */}
+      <div className="flex justify-center">
+        <button
+          className="
+            group
+            flex items-center justify-center
+            rounded-full
+            bg-white/10
+            border border-white/10
+            text-white
+            transition-all duration-200
+            hover:bg-cyan-400
+            hover:text-black
+            hover:scale-105
+            active:scale-95
+            shadow-lg
+
+            2xl:w-18 2xl:h-18
+            lg:w-14 lg:h-14
+            sm:w-12 sm:h-12
+            w-10 h-10
+          "
+          onClick={beginningMusic}
+        >
+          <span className="2xl:text-3xl lg:text-2xl text-lg font-bold">
+            ↺
+          </span>
+        </button>
+      </div>
+      {/* Next */}
+      <div className="col-span-1 flex justify-center sm:hidden">
         <button
           className="
             group
