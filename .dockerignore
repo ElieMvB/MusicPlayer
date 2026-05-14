@@ -4,5 +4,5 @@ dist
 .gitignore
 
 api
-./public/music
-./music
+public/music
+music
