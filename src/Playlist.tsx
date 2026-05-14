@@ -49,9 +49,8 @@ function Playlist() {
   <div className="
     min-h-screen
     bg-gradient-to-br
-    from-slate-950
-    via-purple-950
-    to-fuchsia-950
+    from-purple-950
+    to-slate-900
     text-white
     pb-40
   ">
@@ -67,7 +66,7 @@ function Playlist() {
         sm:text-4xl
         text-2xl
       ">
-        <span className="bg-gradient-to-r from-fuchsia-400 via-purple-300 to-lime-300 bg-clip-text text-transparent">
+        <span className="bg-gradient-to-r from-fuchsia-400 to-purple-300 bg-clip-text text-transparent">
           {title}
         </span>
       </h1>
@@ -81,7 +80,7 @@ function Playlist() {
       rounded-3xl
       border border-white/10
       bg-white/5
-      backdrop-blur-md
+      backdrop-blur-sm
       shadow-2xl
       p-5 sm:p-8
     ">

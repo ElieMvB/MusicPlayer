@@ -36,7 +36,7 @@ function Musics({playlist, filter}: {playlist: {"music": string[]}, filter: stri
         for (let music of visibleMusics.sort()) {
             rows.push(
                 <div key={music} className="sm:text-2xl text-sm flex m-3 border-solid border-2 
-                    hover:border-purple-500"
+                    hover:border-purple-500 cursor-pointer"
                     onClick={() => {playMusic(playlistName, music)}}
                     >
                     <h1 className="m-2" >{music.slice(0, -4)}</h1>
@@ -54,9 +54,7 @@ return (
       rounded-3xl
       border border-white/10
 
-      bg-gradient-to-b
-      from-slate-900
-      to-purple-950/70
+      bg-slate-900
 
       backdrop-blur-md
       shadow-2xl
@@ -89,6 +87,14 @@ return (
         </div>
       )}
     </div>
+    <div className="
+      h-[2px]
+      w-full
+      bg-gradient-to-r
+      from-transparent
+      via-lime-400
+      to-transparent
+    "/>
   </div>
 )
 }

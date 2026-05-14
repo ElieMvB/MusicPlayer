@@ -9,8 +9,7 @@ return (
       min-h-screen
       bg-gradient-to-br
       from-slate-950
-      via-purple-950
-      to-fuchsia-950
+      to-purple-950
       text-white
       pb-32
     ">
@@ -28,13 +27,12 @@ return (
           text-4xl
         ">
           <span className="text-white">My</span>{" "}
-          <span className="bg-gradient-to-r from-fuchsia-400 via-purple-300 to-lime-300 bg-clip-text text-transparent">
-            Music Player
-          </span>
+          <span className="text-fuchsia-400"> Music</span>{" "}
+          <span className="text-lime-300"> Player</span>
         </h1>
         <a className="
           px-6 py-3 mt-8
-          rounded-full
+          rounded-xl
           bg-lime-400/10
           border border-lime-400/20
           text-lime-300
@@ -47,7 +45,7 @@ return (
         href="https://github.com/ElieMvB/MusicPlayer"
         target="_blank"
         >
-          🎵 Répo GitHub
+          Répo GitHub
         </a>
       </div>
 

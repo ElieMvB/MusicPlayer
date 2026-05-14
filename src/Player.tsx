@@ -11,12 +11,15 @@ function Player() {
         if (oldMusics.length - 1 >= numberMusics) {
             setMusicTitle(oldMusics[numberMusics].music.slice(0, -4));
             setMusicPlaylist(oldMusics[numberMusics].playlist);
+            document.title = oldMusics[numberMusics].music.slice(0, -4);
         } else if (musics.length > 0) {
             setMusicTitle(musics[currentMusic].slice(0, -4));
             setMusicPlaylist(currentPlaylist);
+            document.title = musics[currentMusic].slice(0, -4);
         } else {
             setMusicTitle("En attente d'une musique...");
             setMusicPlaylist("En attente d'une playlist...");
+            document.title = "My Music Player"
         }
     }, [numberMusics, currentMusic, musics, oldMusics]);
 
@@ -76,7 +79,7 @@ function Player() {
     }
 
     return (
-  <div className="fixed bottom-0 left-0 w-full border-t border-fuchsia-500/30 bg-gradient-to-r from-fuchsia-900 via-purple-900 to-violet-950 backdrop-blur-md shadow-2xl px-4 py-3 z-50">
+  <div className="fixed bottom-0 left-0 w-full border-t border-fuchsia-500/20 bg-gradient-to-r from-slate-900 via-fuchsia-900 to-violet-950 backdrop-blur-md shadow-2xl px-4 py-3 z-50">
     
     {/* Title */}
     <div className="mb-3 flex items-center justify-between">
