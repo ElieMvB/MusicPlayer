@@ -23,7 +23,7 @@ def get_music(playlist):
     rd.shuffle(music)
     return jsonify({"music": music})
 
-@app.route('/musics', methos=['GET'])
+@app.route('/musics', methods=['GET'])
 def get_musics():
     directory_path = "/app/music" #path in container
     playlists = [entry for entry in os.listdir(directory_path) 

@@ -1,10 +1,8 @@
+import Musics from "./components/Musics";
 import Playlists from "./components/Playlists";
 
 function Home() {
-
-  
-
-return (
+  return (
     <div className="
       min-h-screen
       bg-gradient-to-br
@@ -83,6 +81,7 @@ return (
         </div>
 
         <Playlists />
+        <Musics filter={""} playlist={{"music": []}}/>
       </div>
     </div>
   )

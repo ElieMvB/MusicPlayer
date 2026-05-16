@@ -4,7 +4,7 @@ import {useAppContext} from "./AppContext";
 function Musics({playlist, filter}: {playlist: {"music": string[]}, filter: string}) {
 
     const params = useParams();
-    const playlistName = String(params.parameter);
+    let playlistName = String(params.parameter);
 
     const {numberMusics, setNumberMusics, oldMusics, setOldMusics} = useAppContext();
 
