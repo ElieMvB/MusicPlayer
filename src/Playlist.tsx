@@ -3,7 +3,7 @@ import { useState,useEffect } from "react";
 import Musics from "./components/Musics";
 import { SearchBar } from "./components/SearchBar";
 import { useAppContext } from "./components/AppContext";
-import home from "../public/home.svg"
+import home from "./assets/home.svg"
 
 function Playlist() {
     const params = useParams();
