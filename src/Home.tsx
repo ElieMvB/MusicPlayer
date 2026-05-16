@@ -1,7 +1,11 @@
-import Musics from "./components/Musics";
+import { useState } from "react";
+import HomeMusics from "./components/HomeMusics";
 import Playlists from "./components/Playlists";
+import { SearchBar } from "./components/SearchBar";
 
 function Home() {
+  const [search, setSearch] = useState("");
+
   return (
     <div className="
       min-h-screen
@@ -59,7 +63,13 @@ function Home() {
         shadow-2xl
         p-6 sm:p-10
       ">
-        
+        <div className="mb-8">
+          <SearchBar
+            value={search}
+            placeholder="Rechercher une musique..."
+            onChange={setSearch}
+          />
+        </div>
         <div className="flex items-center gap-3 mb-8">
           
           <div className="
@@ -81,7 +91,29 @@ function Home() {
         </div>
 
         <Playlists />
-        <Musics filter={""} playlist={{"music": []}}/>
+        {search ?
+        <div>
+          <div className="flex items-center gap-3 mb-8">
+            <div className="
+              w-3 h-3
+              rounded-full
+              bg-lime-400
+              shadow-[0_0_12px_rgba(163,230,53,0.9)]
+            "/>
+
+            <h1 className="
+              sm:text-4xl
+              text-2xl
+              font-bold
+              tracking-wide
+              text-white
+            ">
+              Musiques cherchées :
+            </h1>
+          </div>
+          <HomeMusics filter={search}/>
+        </div>
+        : <div/>}
       </div>
     </div>
   )

@@ -30,8 +30,10 @@ def get_musics():
     if os.path.isdir(os.path.join(directory_path, entry))]
     musics = []
     for playlist in playlists:
-        musics.append([entry for entry in os.listdir(directory_path + playlist) 
-                    if os.path.isfile(os.path.join(directory_path + playlist, entry))])
+        musicList = [entry for entry in os.listdir(directory_path + "/" + playlist) 
+                    if os.path.isfile(os.path.join(directory_path + "/" + playlist, entry))]
+        elem = {"playlist": playlist, "musicList": musicList}
+        musics.append(elem)
     return jsonify({"musics": musics})
 
 
