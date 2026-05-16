@@ -1,8 +1,9 @@
-import { useParams } from "react-router-dom"
+import { NavLink, useParams } from "react-router-dom"
 import { useState,useEffect } from "react";
 import Musics from "./components/Musics";
 import { SearchBar } from "./components/SearchBar";
 import { useAppContext } from "./components/AppContext";
+import home from "../public/home.svg"
 
 function Playlist() {
     const params = useParams();
@@ -54,6 +55,21 @@ function Playlist() {
     text-white
     pb-40
   ">
+    <div className="left-5 top-5 absolute w-12 h-12 bg-lime-400 rounded-full tracking-wide
+
+            shadow-[0_0_30px_rgba(163,230,53,0.35)]
+
+            transition-all duration-300
+            hover:scale-105
+            hover:shadow-[0_0_40px_rgba(163,230,53,0.55)]
+            active:scale-95">
+      <NavLink 
+        to="./.."
+        className="flex justify-center h-full"
+        >
+        <img src={home} className="w-[60%]" />
+      </NavLink>
+    </div>
 
     {/* Header */}
     <div className="pt-14 pb-10 px-4 text-center">
