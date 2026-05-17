@@ -23,7 +23,7 @@ function HomeMusics({filter}: {filter: string}) {
         if (currentPlaylist == '') {
           let playerMusicTitle = document.getElementById("musicTitle");
           if (playerMusicTitle !== null) {
-            playerMusicTitle.textContent = m;
+            playerMusicTitle.textContent = m.slice(0, -4);
           }
         }
         const path = "./music/" + p + "/" + m;
@@ -45,28 +45,30 @@ function HomeMusics({filter}: {filter: string}) {
               <h1 className="m-2 col-span-1"><strong>Playlist</strong></h1>
           </div>
       )
-        for (let playlist of data.musics){
-            const playlistName = playlist.playlist;
-            const musics = playlist.musicList;
-            const visibleMusics = musics.filter((music: string) => {
-                if (filter && !music.toLowerCase().includes(filter.toLowerCase()) 
-                                 && !playlistName.toLowerCase().includes(filter.toLowerCase())) {
-                    return false;
-                }
-                return true;
-            });
-            for (let music of visibleMusics.sort()) {
-                rows.push(
-                    <div key={music} className="sm:text-2xl text-sm flex m-3 border-solid border-2 
-                        hover:border-purple-500 cursor-pointer grid grid-cols-3 gap-1"
-                        onClick={() => {playMusic(playlistName, music)}}
-                        >
-                        <h1 className="m-2 col-span-2" >{music.slice(0, -4)}</h1>
-                        <h1 className="m-2 col-span-1">{playlistName}</h1>
-                    </div>
-                )
-            }
-        }
+      let keyCount = 0;
+      for (let playlist of data.musics){
+          const playlistName = playlist.playlist;
+          const musics = playlist.musicList;
+          const visibleMusics = musics.filter((music: string) => {
+              if (filter && !music.toLowerCase().includes(filter.toLowerCase()) 
+                                && !playlistName.toLowerCase().includes(filter.toLowerCase())) {
+                  return false;
+              }
+              return true;
+          });
+          for (let music of visibleMusics.sort()) {
+              rows.push(
+                  <div key={music + keyCount} className="sm:text-2xl text-sm flex m-3 border-solid border-2 
+                      hover:border-purple-500 cursor-pointer grid grid-cols-3 gap-1"
+                      onClick={() => {playMusic(playlistName, music)}}
+                      >
+                      <h1 className="m-2 col-span-2" >{music.slice(0, -4)}</h1>
+                      <h1 className="m-2 col-span-1">{playlistName}</h1>
+                  </div>
+              )
+              keyCount = keyCount + 1;
+          }
+      }
     }
     return rows
     

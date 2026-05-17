@@ -18,7 +18,7 @@ function Musics({playlist, filter}: {playlist: {"music": string[]}, filter: stri
         if (currentPlaylist == '') {
           let playerMusicTitle = document.getElementById("musicTitle");
           if (playerMusicTitle !== null) {
-            playerMusicTitle.textContent = m;
+            playerMusicTitle.textContent = m.slice(0, -4);
           }
         }
         const path = "./music/" + p + "/" + m;
