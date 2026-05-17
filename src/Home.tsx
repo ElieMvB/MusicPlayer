@@ -90,7 +90,7 @@ function Home() {
           </h1>
         </div>
 
-        <Playlists />
+        <Playlists filter={search}/>
         {search ?
         <div>
           <div className="flex items-center gap-3 mb-8">

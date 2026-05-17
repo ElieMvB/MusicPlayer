@@ -49,7 +49,8 @@ function HomeMusics({filter}: {filter: string}) {
             const playlistName = playlist.playlist;
             const musics = playlist.musicList;
             const visibleMusics = musics.filter((music: string) => {
-                if (filter && !music.toLowerCase().includes(filter.toLowerCase())) {
+                if (filter && !music.toLowerCase().includes(filter.toLowerCase()) 
+                                 && !playlistName.toLowerCase().includes(filter.toLowerCase())) {
                     return false;
                 }
                 return true;

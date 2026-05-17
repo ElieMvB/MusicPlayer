@@ -1,7 +1,7 @@
 import { useState,useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
-function Playlists() {
+function Playlists({filter}: {filter: string}) {
 
   const [data, setData] = useState(null);
 
@@ -15,7 +15,13 @@ function Playlists() {
   function listPlaylists (data : {"playlists": []}) {
     const rows = [];
     if (data !== null) {
-        for (let playlist of data.playlists) {
+        const visiblePlaylists = data.playlists.filter((p: string) => {
+          if (filter && !p.toLocaleLowerCase().includes(filter.toLocaleLowerCase())) {
+            return false;
+          }
+          return true;
+        })
+        for (let playlist of visiblePlaylists) {
             rows.push(
                 <NavLink 
                     to={playlist}
