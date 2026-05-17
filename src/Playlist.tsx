@@ -55,7 +55,7 @@ function Playlist() {
     text-white
     pb-40
   ">
-    <div className="left-5 top-5 absolute w-12 h-12 bg-lime-400 rounded-full tracking-wide
+    <div className="sm:left-5 sm:top-5 left-3 top-3 absolute sm:w-12 sm:h-12 w-9 h-9 bg-lime-400 rounded-full tracking-wide
 
             shadow-[0_0_30px_rgba(163,230,53,0.35)]
 
