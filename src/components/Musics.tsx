@@ -6,7 +6,7 @@ function Musics({playlist, filter}: {playlist: {"music": string[]}, filter: stri
     const params = useParams();
     const playlistName = String(params.parameter);
 
-    const {numberMusics, setNumberMusics, oldMusics, setOldMusics} = useAppContext();
+    const {numberMusics, setNumberMusics, oldMusics, setOldMusics, currentPlaylist} = useAppContext();
 
     function playMusic (p : string, m : string) {
       const player = document.getElementById("player") as HTMLAudioElement;
@@ -15,6 +15,12 @@ function Musics({playlist, filter}: {playlist: {"music": string[]}, filter: stri
         const newOldMusics = oldMusics;
         newOldMusics.push({"music": m, "playlist":p});
         setOldMusics(newOldMusics);
+        if (currentPlaylist == '') {
+          let playerMusicTitle = document.getElementById("musicTitle");
+          if (playerMusicTitle !== null) {
+            playerMusicTitle.textContent = m;
+          }
+        }
         const path = "./music/" + p + "/" + m;
         player.src = path;
         player.load()

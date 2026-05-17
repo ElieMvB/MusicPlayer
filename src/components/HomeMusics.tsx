@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 function HomeMusics({filter}: {filter: string}) {
     const [data, setData] = useState<{"musics": {"playlist": string, "musicList": string[]}[]} | null>(null)
 
-    const {numberMusics, setNumberMusics, oldMusics, setOldMusics} = useAppContext();
+    const {numberMusics, setNumberMusics, oldMusics, setOldMusics, currentPlaylist} = useAppContext();
 
     useEffect(() => {
         fetch("https://music-player-api.martial-van-beek.com/musics")
@@ -20,6 +20,12 @@ function HomeMusics({filter}: {filter: string}) {
         const newOldMusics = oldMusics;
         newOldMusics.push({"music": m, "playlist":p});
         setOldMusics(newOldMusics);
+        if (currentPlaylist == '') {
+          let playerMusicTitle = document.getElementById("musicTitle");
+          if (playerMusicTitle !== null) {
+            playerMusicTitle.textContent = m;
+          }
+        }
         const path = "./music/" + p + "/" + m;
         player.src = path;
         player.load()
@@ -32,25 +38,22 @@ function HomeMusics({filter}: {filter: string}) {
   function listMusic () {
     const rows = [];
     if (data !== null) {
+      rows.push(
+          <div className="sm:text-3xl text-sm flex m-3 border-solid border-2 
+                  grid grid-cols-3 gap-1">
+              <h1 className="m-2 col-span-2"><strong>Titre</strong></h1>
+              <h1 className="m-2 col-span-1"><strong>Playlist</strong></h1>
+          </div>
+      )
         for (let playlist of data.musics){
             const playlistName = playlist.playlist;
             const musics = playlist.musicList;
-            console.log(playlistName);
-            console.log(musics);
-            console.log("there");
             const visibleMusics = musics.filter((music: string) => {
                 if (filter && !music.toLowerCase().includes(filter.toLowerCase())) {
                     return false;
                 }
                 return true;
             });
-            rows.push(
-                <div className="sm:text-3xl text-sm flex m-3 border-solid border-2 
-                        grid grid-cols-3 gap-1">
-                    <h1 className="m-2 col-span-2"><strong>Titre</strong></h1>
-                    <h1 className="m-2 col-span-1"><strong>Playlist</strong></h1>
-                </div>
-            )
             for (let music of visibleMusics.sort()) {
                 rows.push(
                     <div key={music} className="sm:text-2xl text-sm flex m-3 border-solid border-2 

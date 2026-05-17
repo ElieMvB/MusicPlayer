@@ -8,7 +8,7 @@ function Player() {
     const {musics, currentMusic, setCurrentMusic, currentPlaylist, numberMusics, setNumberMusics, oldMusics, setOldMusics} = useAppContext();
 
     useEffect(() => {
-        if (oldMusics.length - 1 >= numberMusics) {
+        if (oldMusics.length - 1 >= numberMusics ) {
             setMusicTitle(oldMusics[numberMusics].music.slice(0, -4));
             setMusicPlaylist(oldMusics[numberMusics].playlist);
             document.title = oldMusics[numberMusics].music.slice(0, -4);
@@ -38,28 +38,30 @@ function Player() {
     };
 
     function nextMusic () {
-        if (oldMusics.length - 2 >= numberMusics) {
-            setNumberMusics(numberMusics + 1);
-            setMusicTitle(oldMusics[numberMusics + 1].music.slice(0, -4));
-            playMusic(oldMusics[numberMusics + 1]);
-        } else {
-            const newOldMusics = oldMusics;
-            
-            if (currentMusic == musics.length - 1) {
-                setCurrentMusic(0);
-                newOldMusics.push({"music": musics[0], "playlist": currentPlaylist})
-                setOldMusics(newOldMusics);
-                setNumberMusics(numberMusics + 1);
-                setMusicTitle(musics[0].slice(0, -4));
-                playMusic({"music": musics[0], "playlist": currentPlaylist});
-            } else {
-                newOldMusics.push({"music": musics[currentMusic+1], "playlist": currentPlaylist})
-                setOldMusics(newOldMusics);
-                setNumberMusics(numberMusics + 1);
-                setCurrentMusic(currentMusic + 1);
-                setMusicTitle(musics[currentMusic + 1].slice(0, -4));
-                playMusic({"music": musics[currentMusic + 1], "playlist": currentPlaylist});
-            }
+        if (currentPlaylist != '') {
+          if (oldMusics.length - 2 >= numberMusics) {
+              setNumberMusics(numberMusics + 1);
+              setMusicTitle(oldMusics[numberMusics + 1].music.slice(0, -4));
+              playMusic(oldMusics[numberMusics + 1]);
+          } else {
+              const newOldMusics = oldMusics;
+              
+              if (currentMusic == musics.length - 1) {
+                  setCurrentMusic(0);
+                  newOldMusics.push({"music": musics[0], "playlist": currentPlaylist})
+                  setOldMusics(newOldMusics);
+                  setNumberMusics(numberMusics + 1);
+                  setMusicTitle(musics[0].slice(0, -4));
+                  playMusic({"music": musics[0], "playlist": currentPlaylist});
+              } else {
+                  newOldMusics.push({"music": musics[currentMusic+1], "playlist": currentPlaylist})
+                  setOldMusics(newOldMusics);
+                  setNumberMusics(numberMusics + 1);
+                  setCurrentMusic(currentMusic + 1);
+                  setMusicTitle(musics[currentMusic + 1].slice(0, -4));
+                  playMusic({"music": musics[currentMusic + 1], "playlist": currentPlaylist});
+              }
+          }
         }
     }
 
@@ -84,7 +86,7 @@ function Player() {
     {/* Title */}
     <div className="mb-3 flex items-center justify-between">
       <div className="overflow-hidden">
-        <h1 className="truncate font-semibold text-white tracking-wide 
+        <h1 id="musicTitle" className="truncate font-semibold text-white tracking-wide 
           2xl:text-3xl lg:text-2xl md:text-xl text-sm">
           {musicTitle ? musicTitle : "En attente d'une musique..."}
         </h1>
