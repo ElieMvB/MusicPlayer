@@ -1,10 +1,17 @@
-export function SearchBar ({placeholder, value, onChange} : 
-    {value:string, placeholder:string, onChange:((s: string) => void)}) {
-    return (
+export function SearchBar({
+  placeholder,
+  value,
+  onChange,
+}: {
+  value: string;
+  placeholder: string;
+  onChange: (s: string) => void;
+}) {
+  return (
     <div className="relative w-full">
-
       {/* Search Icon */}
-      <div className="
+      <div
+        className="
         absolute
         left-4
         top-1/2
@@ -12,7 +19,9 @@ export function SearchBar ({placeholder, value, onChange} :
         text-slate-400
         text-lg
         pointer-events-none
-      ">
+        mt-1
+      "
+      >
         🔍
       </div>
 
@@ -51,5 +60,5 @@ export function SearchBar ({placeholder, value, onChange} :
         "
       />
     </div>
-  )
+  );
 }

@@ -1,1 +1,20 @@
 @import "tailwindcss";
+
+.audio-slider {
+    appearance: none;
+    -webkit-appearance: none;
+
+    height: 8px;
+    border-radius: 999px;
+    outline: none;
+
+    background: linear-gradient(
+        to right,
+        #9333ea 0%,
+        #9333ea calc(var(--progress, 0) * 1%),
+        #3f3f46 calc(var(--progress, 0) * 1%),
+        #3f3f46 100%
+    );
+
+    transition: background 50ms linear;
+}
