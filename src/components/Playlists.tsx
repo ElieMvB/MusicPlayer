@@ -5,7 +5,7 @@ function Playlists({ filter }: { filter: string }) {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/playlists")
+    fetch("http://localhost:3000/playlists")
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error));
@@ -23,7 +23,7 @@ function Playlists({ filter }: { filter: string }) {
         }
         return true;
       });
-      for (let playlist of visiblePlaylists) {
+      for (const playlist of visiblePlaylists) {
         rows.push(
           <NavLink
             to={playlist}

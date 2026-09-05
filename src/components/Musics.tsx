@@ -17,6 +17,7 @@ function Musics({
     oldMusics,
     setOldMusics,
     currentPlaylist,
+    musicPaths,
   } = useAppContext();
 
   function playMusic(p: string, m: string) {
@@ -40,8 +41,12 @@ function Musics({
       if (textP !== null) {
         textP.innerHTML = "||";
       }
-      const path = "./music/" + p + "/" + m;
-      player.src = path;
+      const path = musicPaths.get(m);
+      if (path === undefined) {
+        player.src = '';
+      } else {
+        player.src = path;
+      }
       player.load();
       player.play().catch((err) => {
         console.log(err);

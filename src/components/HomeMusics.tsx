@@ -12,14 +12,26 @@ function HomeMusics({ filter }: { filter: string }) {
     oldMusics,
     setOldMusics,
     currentPlaylist,
+    musicPaths,
+    setMusicPaths,
   } = useAppContext();
 
   useEffect(() => {
-    fetch("http://localhost:5000/musics")
+    fetch("http://localhost:3000/musics")
       .then((response) => response.json())
-      .then((json) => setData(json))
+      .then((json) => {
+        setData(json);
+        console.log(json);
+        const paths = new Map<string, string>
+        for (const playlist of json.musics) {
+          for (let i = 0; i < playlist.musicList.length; i = i + 1) {
+            paths.set(playlist.musicList[i], playlist.pathList[i]);
+          }
+        }
+        setMusicPaths(paths);
+      })
       .catch((error) => console.error(error));
-  }, []);
+  }, [setMusicPaths]);
 
   function playMusic(p: string, m: string) {
     const player = document.getElementById("player") as HTMLAudioElement;
@@ -31,11 +43,15 @@ function HomeMusics({ filter }: { filter: string }) {
       if (currentPlaylist == "") {
         let playerMusicTitle = document.getElementById("musicTitle");
         if (playerMusicTitle !== null) {
-          playerMusicTitle.textContent = m.slice(0, -4);
+          playerMusicTitle.textContent = m;
         }
       }
-      const path = "./music/" + p + "/" + m;
-      player.src = path;
+      const path = musicPaths.get(m);
+      if (path !== undefined) {
+        player.src = path;
+      } else {
+        player.src = '';
+      }
       player.load();
       player.play().catch((err) => {
         console.log(err);
@@ -60,7 +76,7 @@ function HomeMusics({ filter }: { filter: string }) {
         </div>,
       );
       let keyCount = 0;
-      for (let playlist of data.musics) {
+      for (const playlist of data.musics) {
         const playlistName = playlist.playlist;
         const musics = playlist.musicList;
         const visibleMusics = musics.filter((music: string) => {

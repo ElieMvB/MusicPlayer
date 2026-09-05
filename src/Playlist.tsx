@@ -20,14 +20,23 @@ function Playlist() {
     setCurrentPlaylist,
     setNumberMusics,
     setOldMusics,
+    setMusicPaths,
+    musicPaths,
   } = useAppContext();
 
   useEffect(() => {
-    fetch("http://localhost:5000/music/" + playlist)
+    fetch("http://localhost:3000/musics/" + playlist)
       .then((response) => response.json())
-      .then((json) => setData(json))
+      .then((json) => {
+        setData(json);
+        const paths = new Map<string, string>
+        for (let i = 0; i < json.music.length; i = i + 1) {
+          paths.set(json.music[i], json.paths[i]);
+        }
+        setMusicPaths(paths);
+      })
       .catch((error) => console.error(error));
-  }, []);
+  }, [setMusicPaths, playlist]);
 
   function playMusic(music: string) {
     const player = document.getElementById("player") as HTMLAudioElement;
@@ -40,8 +49,12 @@ function Playlist() {
       if (textP !== null) {
         textP.innerHTML = "||";
       }
-      const path = "./music/" + playlist + "/" + music;
-      player.src = path;
+      const path = musicPaths.get(music);
+      if (path === undefined) {
+        player.src = '';
+      } else {
+        player.src = path;
+      }
       player.load();
       player.play().catch((err) => {
         console.log(err);

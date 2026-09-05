@@ -14,6 +14,7 @@ function Player() {
     setNumberMusics,
     oldMusics,
     setOldMusics,
+    musicPaths,
   } = useAppContext();
 
   useEffect(() => {
@@ -35,7 +36,6 @@ function Player() {
 
   function playMusic(json: { music: string; playlist: string }) {
     const current_music = String(json.music);
-    const current_playlist = String(json.playlist);
     const player = document.getElementById("player") as HTMLAudioElement;
     if (current_music !== null) {
       const textC = document.getElementById("pauseButtonTextComputer");
@@ -46,8 +46,12 @@ function Player() {
       if (textP !== null) {
         textP.innerHTML = "||";
       }
-      const path = "./music/" + current_playlist + "/" + current_music;
-      player.src = path; //requete au site à ce moment là
+      const path = musicPaths.get(current_music);
+      if (path === undefined) {
+        player.src = '';
+      } else {
+        player.src = path;
+      }
       player.load();
       player.play().catch((err) => {
         console.log(err);
@@ -349,7 +353,7 @@ function Player() {
       </div>
 
       {/* Controls for phones */}
-      <div className="sm:hidden grid grid-cols-5 gap-3 items-center mt-1">
+      <div className="sm:hidden grid grid-cols-5 gap-3 items-center mt-3">
         {/* Previous */}
         <div className="flex justify-center">
           <button

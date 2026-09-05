@@ -24,5 +24,4 @@ dist-ssr
 *.sw?
 
 public/music
-api/venv
 compose.yml
