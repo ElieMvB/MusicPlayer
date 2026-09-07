@@ -3,11 +3,12 @@ import Home from "./Home";
 import Playlist from "./Playlist";
 import Player from "./Player";
 import { AppProvider } from "./components/AppContext";
+import { LoginButton, LoginMenu }  from "./components/Login";
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: 
+    element:
       <>
         <Player/>
         <Outlet/>
@@ -15,7 +16,12 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Home/>
+        element:
+          <>
+            <LoginButton />
+            <LoginMenu/>
+            <Home />
+          </>
       },
       {
         path:":parameter",
