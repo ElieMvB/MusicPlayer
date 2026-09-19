@@ -25,7 +25,7 @@ function Playlist() {
   } = useAppContext();
 
   useEffect(() => {
-    fetch("http://localhost:3000/musics/" + playlist)
+    fetch(import.meta.env.VITE_BASE_URL + "/musics/" + playlist)
       .then((response) => response.json())
       .then((json) => {
         setData(json);
