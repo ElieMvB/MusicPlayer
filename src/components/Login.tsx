@@ -61,7 +61,7 @@ export function LoginMenu() {
             const username = document.getElementById('username') as HTMLInputElement;
             const password = document.getElementById('password') as HTMLInputElement;
             if (username !== undefined && password !== undefined) {
-              fetch('http://localhost:3000/auth/login', {
+              fetch(import.meta.env.VITE_BASE_URL + '/auth/login', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json'

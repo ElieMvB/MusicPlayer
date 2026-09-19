@@ -26,7 +26,7 @@ function ModifyPlaylist() {
       })
       .catch((error) => console.error(error));
 
-    fetch("http://localhost:3000/musics")
+    fetch(import.meta.env.VITE_BASE_URL + "/musics")
       .then((response) => response.json())
       .then((json) => {
         setFullData(json);
