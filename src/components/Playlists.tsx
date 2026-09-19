@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
-function Playlists({ filter }: { filter: string }) {
+function Playlists({ filter, userName }: { filter: string, userName: string | undefined }) {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/playlists")
+    fetch(import.meta.env.VITE_BASE_URL + "/playlists")
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error));
@@ -14,10 +14,12 @@ function Playlists({ filter }: { filter: string }) {
   function listPlaylists(data: { playlists: [] }) {
     const rows = [];
     if (data !== null) {
-      const visiblePlaylists = data.playlists.filter((p: string) => {
+      const visiblePlaylists: {name: string, owner: string}[] = data.playlists.filter((p: {name: string, owner: string}) => {
         if (
           filter &&
-          !p.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
+          !p.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase()) &&
+          !p.owner.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
+          || (userName && userName !== p.owner)
         ) {
           return false;
         }
@@ -26,12 +28,16 @@ function Playlists({ filter }: { filter: string }) {
       for (const playlist of visiblePlaylists) {
         rows.push(
           <NavLink
-            to={playlist}
+            to={'playlist/' + playlist.name}
             className="flex m-3 w-[95%] border-solid border-2
                         hover:border-purple-500 bg-slate-900 sm:text-2xl text-sm"
-            key={playlist}
+            key={playlist.name}
+            id={playlist.name}
           >
-            <h1 className="m-1">{playlist}</h1>
+            <div className="grid grid-cols-4 w-full">
+              <h1 className="m-1 col-span-3">{playlist.name}</h1>
+              <h1 className="m-1 col-span-1">{playlist.owner}</h1>
+            </div>
           </NavLink>,
         );
       }

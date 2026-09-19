@@ -15,7 +15,7 @@ function Home() {
       text-white
       pb-32
     ">
-      
+
       {/* Hero Section */}
       <div className="flex flex-col items-center justify-center pt-16 pb-12 px-4">
 
@@ -71,7 +71,7 @@ function Home() {
           />
         </div>
         <div className="flex items-center gap-3 mb-8">
-          
+
           <div className="
             w-3 h-3
             rounded-full
@@ -90,7 +90,7 @@ function Home() {
           </h1>
         </div>
 
-        <Playlists filter={search}/>
+        <Playlists filter={search} userName={undefined}/>
         {search ?
         <div>
           <div className="flex items-center gap-3 mb-8">

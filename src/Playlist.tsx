@@ -53,7 +53,7 @@ function Playlist() {
       if (path === undefined) {
         player.src = '';
       } else {
-        player.src = path;
+        player.src = '/' + path;
       }
       player.load();
       player.play().catch((err) => {
@@ -94,7 +94,7 @@ function Playlist() {
             hover:shadow-[0_0_40px_rgba(163,230,53,0.55)]
             active:scale-95"
       >
-        <NavLink to="./.." className="flex justify-center h-full">
+        <NavLink to="/" className="flex justify-center h-full">
           <img src={home} className="w-[60%]" />
         </NavLink>
       </div>

@@ -3,7 +3,9 @@ import Home from "./Home";
 import Playlist from "./Playlist";
 import Player from "./Player";
 import { AppProvider } from "./components/AppContext";
-import { LoginButton, LoginMenu }  from "./components/Login";
+import { LoginMenu, EditButton } from "./components/Login";
+import Dashboard from "./Dashboard";
+import ModifyPlaylist from "./ModifyPlaylist";
 
 const router = createBrowserRouter([
   {
@@ -18,14 +20,37 @@ const router = createBrowserRouter([
         path: "",
         element:
           <>
-            <LoginButton />
+            <EditButton/>
             <LoginMenu/>
             <Home />
           </>
       },
       {
-        path:":parameter",
-        element: <Playlist/>
+        path: "playlist",
+        children: [
+          {
+            path:":parameter",
+            element: <Playlist/>
+          }
+        ]
+      },
+      {
+        path: "dashboard",
+        children: [
+          {
+            path: "",
+            element: <Dashboard />
+          },
+          {
+            path: 'playlist',
+            children: [
+              {
+                path: ":parameter",
+                element: <ModifyPlaylist/>
+              }
+            ]
+          }
+        ]
       }
     ]
   }

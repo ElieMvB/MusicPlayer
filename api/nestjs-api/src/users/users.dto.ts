@@ -11,7 +11,6 @@ export class UsersDto {
   ) {}
 
   async create(username: string, password: string): Promise<User> {
-    console.log('dto');
     const user = this.usersRepository.create({
       username: username,
       password: password,

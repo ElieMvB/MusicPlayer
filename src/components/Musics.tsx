@@ -45,7 +45,7 @@ function Musics({
       if (path === undefined) {
         player.src = '';
       } else {
-        player.src = path;
+        player.src = '/' + path;
       }
       player.load();
       player.play().catch((err) => {
@@ -63,7 +63,7 @@ function Musics({
         }
         return true;
       });
-      for (let music of visibleMusics.sort()) {
+      for (const music of visibleMusics.sort()) {
         rows.push(
           <div
             key={music}

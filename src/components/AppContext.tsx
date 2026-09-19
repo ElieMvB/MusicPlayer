@@ -15,6 +15,12 @@ type ContextType = {
   setOldMusics: React.Dispatch<React.SetStateAction<{ "music": string, "playlist": string }[]>>;
   musicPaths: Map<string, string>,
   setMusicPaths: React.Dispatch<React.SetStateAction<Map<string, string>>>,
+  jwtToken: string,
+  setJwtToken: React.Dispatch<React.SetStateAction<string>>,
+  dateToken: number,
+  setDateToken: React.Dispatch<React.SetStateAction<number>>,
+  connectedUser: string | undefined,
+  setConnectedUser: React.Dispatch<React.SetStateAction<string | undefined>>
 }
 
 const AppContext = createContext<ContextType | undefined>(
@@ -32,12 +38,16 @@ export function AppProvider({children}: AppProviderProps) {
   const [numberMusics, setNumberMusics] = useState(0);
   const [oldMusics, setOldMusics] = useState<{ "music": string, "playlist": string }[]>([]);
   const [musicPaths, setMusicPaths] = useState<Map<string, string>>(new Map);
+  const [jwtToken, setJwtToken] = useState<string>('');
+  const [dateToken, setDateToken] = useState(0);
+  const [connectedUser, setConnectedUser] = useState<string | undefined>(undefined);
 
     return (
         <AppContext.Provider value={{musics, setMusics, currentMusic, setCurrentMusic,
                                     currentPlaylist, setCurrentPlaylist, numberMusics,
                                     setNumberMusics, oldMusics, setOldMusics, musicPaths,
-                                    setMusicPaths}}>
+                                    setMusicPaths, jwtToken, setJwtToken, dateToken,
+                                    setDateToken, connectedUser, setConnectedUser}}>
             {children}
         </AppContext.Provider>
     )

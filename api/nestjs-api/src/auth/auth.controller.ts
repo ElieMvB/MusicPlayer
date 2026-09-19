@@ -17,11 +17,8 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  signIn(@Body() signInDto: Record<string, any>) {
-    return this.authService.signIn(
-      signInDto.username as string,
-      signInDto.password as string,
-    );
+  signIn(@Body() signInDto: Record<string, string>) {
+    return this.authService.signIn(signInDto.username, signInDto.password);
   }
 
   @UseGuards(AuthGuard)
@@ -38,6 +35,7 @@ elie@lordi ~/B/d/d/MusicPlayerPstgrs> curl -X POST http://localhost:3000/auth/lo
 {"access_token":""}⏎
 elie@lordi ~/B/d/d/MusicPlayerPstgrs> curl -X POST http://localhost:3000/auth/login -d '{"username": "Elie", "password": "admin"}' -H "Content-Type: application/json"
 {"acces_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJuYW1lIjoiRWxpZSIsImlhdCI6MTc4NTU3OTg2MSwiZXhwIjoxNzg1NTc5OTIxfQ.stSN70CCzE0jiD0BYlwl1iW9i8zStjh76skvUGmBLaY"}⏎                                                            elie@lordi ~/B/d/d/MusicPlayerPstgrs> curl http://localhost:3000/auth/profile -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJuYW1lIjoiRWxpZSIsImlhdCI6MTc4NTU3OTg2MSwiZXhwIjoxNzg1NTc5OTIxfQ.stSN70CCzE0jiD0BYlwl1iW9i8zStjh76skvUGmBLaY"
+curl http://localhost:3000/auth/profile -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzZXJuYW1lIjoiRWxpZSIsImlhdCI6MTc4ODc5NDUxMiwiZXhwIjoxNzg4Nzk1NDEyfQ.wlaxtrtzdyCUVjg_bwNJytjDzUT0ha5zqzyArFvMsEg"
 {"sub":1,"username":"Elie","iat":1785579861,"exp":1785579921}⏎
 elie@lordi ~/B/d/d/MusicPlayerPstgrs>
 

@@ -43,33 +43,47 @@ export class PlaylistsService {
     return await this.dto.findOneByName(name);
   }
 
-  async addMusic(playlistName: string, musics: Music[]): Promise<void> {
+  async addMusic(
+    playlistName: string,
+    musics: Music[],
+    user: User,
+  ): Promise<void> {
     const playlist = await this.dto.findOneByName(playlistName);
     if (playlist !== null) {
-      for (const music of musics) {
-        playlist.musics.push(music);
-      }
-      await this.dto.save(playlist);
-    }
-  }
-
-  async removeMusic(playlistName: string, musicName: string): Promise<void> {
-    const playlist = await this.dto.findOneByName(playlistName);
-    if (playlist !== null) {
-      for (let i = 0; i < playlist.musics.length; i += 1) {
-        if (playlist.musics[i].name === musicName) {
-          playlist.musics.splice(i, 1);
-          break;
+      if (user.id === playlist.user.id) {
+        for (const music of musics) {
+          playlist.musics.push(music);
         }
+        await this.dto.save(playlist);
       }
-      await this.dto.save(playlist);
     }
   }
 
-  async deletePlaylist(name: string): Promise<void> {
+  async removeMusic(
+    playlistName: string,
+    musicName: string,
+    user: User,
+  ): Promise<void> {
+    const playlist = await this.dto.findOneByName(playlistName);
+    if (playlist !== null) {
+      if (user.id === playlist.user.id) {
+        for (let i = 0; i < playlist.musics.length; i += 1) {
+          if (playlist.musics[i].name === musicName) {
+            playlist.musics.splice(i, 1);
+            break;
+          }
+        }
+        await this.dto.save(playlist);
+      }
+    }
+  }
+
+  async deletePlaylist(name: string, user: User): Promise<void> {
     const playlist = await this.dto.findOneByName(name);
     if (playlist !== null) {
-      await this.dto.remove(playlist.id);
+      if (playlist.user.id === user.id) {
+        await this.dto.remove(playlist.id);
+      }
     }
   }
 }

@@ -19,6 +19,18 @@ export class UsersService {
     return await this.dto.findOneByName(name);
   }
 
+  async getPlaylists(username: string): Promise<string[]> {
+    const user = await this.dto.findOneByName(username);
+    if (user === undefined || user?.playlists === undefined) {
+      return [];
+    }
+    const playlists: string[] = [];
+    for (const playlist of user.playlists) {
+      playlists.push(playlist.name);
+    }
+    return playlists;
+  }
+
   async addPlaylist(playlist: Playlist, userName: string): Promise<void> {
     const user = await this.dto.findOneByName(userName);
     if (user !== null) {
