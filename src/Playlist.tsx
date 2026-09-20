@@ -28,15 +28,18 @@ function Playlist() {
     fetch(import.meta.env.VITE_BASE_URL + "/musics/" + playlist)
       .then((response) => response.json())
       .then((json) => {
+
         for (let i = 0; i < json.music.length; i = i + 1) {
           const j = Math.floor(Math.random() * (json.music.length));
           if (i !== j) {
-            const tempM = json.music[i];
-            const tempP = json.paths[i];
-            json.music[i] = json.music[j];
-            json.paths[i] = json.music[j];
-            json.music[j] = tempM;
-            json.paths[j] = tempP;
+            const tempMi = json.music[i];
+            const tempPi = json.paths[i];
+            const tempMj = json.music[j];
+            const tempPj = json.paths[j];
+            json.music[i] = tempMj;
+            json.paths[i] = tempPj;
+            json.music[j] = tempMi;
+            json.paths[j] = tempPi;
           }
         }
         setData(json);
@@ -66,7 +69,6 @@ function Playlist() {
       } else {
         player.src = '/' + path;
       }
-      console.log(path);
       player.load();
       player.play().catch((err) => {
         console.log(err);
