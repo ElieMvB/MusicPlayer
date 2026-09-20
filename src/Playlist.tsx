@@ -28,6 +28,17 @@ function Playlist() {
     fetch(import.meta.env.VITE_BASE_URL + "/musics/" + playlist)
       .then((response) => response.json())
       .then((json) => {
+        for (let i = 0; i < json.music.length; i = i + 1) {
+          const j = Math.floor(Math.random() * (json.music.length));
+          if (i !== j) {
+            const tempM = json.music[i];
+            const tempP = json.paths[i];
+            json.music[i] = json.music[j];
+            json.paths[i] = json.music[j];
+            json.music[j] = tempM;
+            json.paths[j] = tempP;
+          }
+        }
         setData(json);
         const paths = new Map<string, string>
         for (let i = 0; i < json.music.length; i = i + 1) {
