@@ -66,6 +66,7 @@ function Playlist() {
       } else {
         player.src = '/' + path;
       }
+      console.log(path);
       player.load();
       player.play().catch((err) => {
         console.log(err);
