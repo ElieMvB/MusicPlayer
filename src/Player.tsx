@@ -50,7 +50,7 @@ function Player() {
       if (path === undefined) {
         player.src = '';
       } else {
-        player.src = path;
+        player.src = '/' + path;
       }
       player.load();
       player.play().catch((err) => {
