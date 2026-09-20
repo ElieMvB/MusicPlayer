@@ -12,7 +12,7 @@ export class MusicsController {
   async createOne(
     @Query('name') name: string,
     @Query('path') path: string,
-  ): Promise<Music> {
+  ): Promise<Music | null> {
     return await this.musicsService.createMusic(name, path);
   }
 }

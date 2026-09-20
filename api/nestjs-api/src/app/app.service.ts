@@ -31,7 +31,7 @@ export class AppService {
             if (music.isFile()) {
               await this.musicsService.createMusic(
                 music.name,
-                path + '/' + playlist.name + '/' + music.name
+                path + '/' + playlist.name + '/' + music.name,
               );
               await this.addMusicToPlaylist(playlist.name, music.name, 'Elie');
             }

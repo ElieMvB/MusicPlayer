@@ -6,8 +6,14 @@ import { MusicsDto } from './musics.dto';
 export class MusicsService {
   constructor(private readonly dto: MusicsDto) {}
 
-  async createMusic(name: string, path: string): Promise<Music> {
-    return await this.dto.create(name, path);
+  async createMusic(name: string, path: string): Promise<Music | null> {
+    try {
+      const m = await this.dto.create(name, path);
+      return m;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
   }
 
   async getAllMusics(): Promise<Music[]> {
