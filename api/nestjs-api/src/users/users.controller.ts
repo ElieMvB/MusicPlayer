@@ -18,8 +18,12 @@ export class UsersController {
   async createOne(
     @Query('username') username: string,
     @Query('password') password: string,
-  ): Promise<User> {
-    return await this.usersService.createUser(username, password);
+    @Query('auth') auth: string,
+  ): Promise<User | null> {
+    if (auth === process.env.auth) {
+      return await this.usersService.createUser(username, password);
+    }
+    return null;
   }
 
   @UseGuards(AuthGuard)
